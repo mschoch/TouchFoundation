@@ -36,11 +36,11 @@
 {
 if ([inObject isKindOfClass:[NSString class]])
 	{
-	return([[[self alloc] initWithString:inObject] autorelease]);
+	return([[self alloc] initWithString:inObject]);
 	}
 else if ([inObject isKindOfClass:[NSNumber class]])
 	{
-	return([[[self alloc] initWithString:[inObject stringValue]] autorelease]);
+	return([[self alloc] initWithString:[inObject stringValue]]);
 	}
 else
 	{

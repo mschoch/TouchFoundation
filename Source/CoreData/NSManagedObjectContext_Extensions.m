@@ -34,7 +34,7 @@
 - (NSUInteger)countOfObjectsOfEntityForName:(NSString *)inEntityName predicate:(NSPredicate *)inPredicate error:(NSError **)outError
 {
 NSEntityDescription *theEntityDescription = [NSEntityDescription entityForName:inEntityName inManagedObjectContext:self];
-NSFetchRequest *theFetchRequest = [[[NSFetchRequest alloc] init] autorelease];
+NSFetchRequest *theFetchRequest = [[NSFetchRequest alloc] init];
 [theFetchRequest setEntity:theEntityDescription];
 if (inPredicate)
 	[theFetchRequest setPredicate:inPredicate];
@@ -45,7 +45,7 @@ return(theCount);
 - (NSArray *)fetchObjectsOfEntityForName:(NSString *)inEntityName predicate:(NSPredicate *)inPredicate error:(NSError **)outError
 {
 NSEntityDescription *theEntityDescription = [NSEntityDescription entityForName:inEntityName inManagedObjectContext:self];
-NSFetchRequest *theFetchRequest = [[[NSFetchRequest alloc] init] autorelease];
+NSFetchRequest *theFetchRequest = [[NSFetchRequest alloc] init];
 [theFetchRequest setEntity:theEntityDescription];
 if (inPredicate)
 	[theFetchRequest setPredicate:inPredicate];

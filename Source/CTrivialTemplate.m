@@ -59,12 +59,6 @@ NSString *thePath = [[NSBundle mainBundle] pathForResource:theName ofType:theExt
 return([self initWithPath:thePath]);
 }
 
-- (void)dealloc
-{
-self.template = NULL;
-//
-[super dealloc];
-}
 
 #pragma mark -
 
@@ -149,7 +143,7 @@ return(theOutputString);
 
 + (NSString *)transformTemplateNamed:(NSString *)inName replacementDictionary:(NSDictionary *)inDictionary error:(NSError **)outError
 {
-CTrivialTemplate *theTemplate = [[[self alloc] initWithTemplateName:inName] autorelease];
+CTrivialTemplate *theTemplate = [[self alloc] initWithTemplateName:inName];
 return([theTemplate transform:inDictionary error:outError]);
 }
 

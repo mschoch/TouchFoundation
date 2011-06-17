@@ -38,7 +38,7 @@
 + (NSFileManager *)fileManager;
     {
     // TODO One per thread!
-    return([[[NSFileManager alloc] init] autorelease]);
+    return([[NSFileManager alloc] init]);
     }
 
 - (NSString *)mimeTypeForPath:(NSString *)inPath

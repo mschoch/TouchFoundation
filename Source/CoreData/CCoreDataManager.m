@@ -102,17 +102,8 @@ return(self);
 
 self.modelURL = NULL;
 self.persistentStoreURL = NULL;
-self.storeType = NULL;
-self.storeOptions = NULL;
 
-[name release];
-name = NULL;
-[persistentStoreCoordinator release];
-persistentStoreCoordinator = NULL;
-[managedObjectModel release];
-managedObjectModel = NULL;
 //
-[super dealloc];
 }
 
 #pragma mark -
@@ -130,8 +121,7 @@ return(modelURL);
 {
 if (modelURL != inModelURL)
 	{
-	[modelURL release];
-	modelURL = [inModelURL retain];
+	modelURL = inModelURL;
 	}
 }
 
@@ -139,7 +129,7 @@ if (modelURL != inModelURL)
 {
 if (persistentStoreURL == NULL && self.name != NULL)
 	{
-	persistentStoreURL = [[[self class] persistentStoreURLForName:self.name storeType:self.storeType forceReplace:self.forceReplace] retain];
+	persistentStoreURL = [[self class] persistentStoreURLForName:self.name storeType:self.storeType forceReplace:self.forceReplace];
 	}
 return(persistentStoreURL);
 }
@@ -148,8 +138,7 @@ return(persistentStoreURL);
 {
 if (persistentStoreURL != inPersistentStoreURL)
 	{
-	[persistentStoreURL release];
-	persistentStoreURL = [inPersistentStoreURL retain];
+	persistentStoreURL = inPersistentStoreURL;
 	}
 }
 
@@ -173,7 +162,7 @@ return(managedObjectModel);
 	{
 	if (persistentStoreCoordinator == NULL)
 		{
-		persistentStoreCoordinator = [[self newPersistentStoreCoordinatorWithOptions:self.storeOptions error:NULL] retain];
+		persistentStoreCoordinator = [self newPersistentStoreCoordinatorWithOptions:self.storeOptions error:NULL];
 
 //		#if THREAD_PARANOIA == 1
 //		NSAssert([NSThread isMainThread] == YES, @"Should not create persistentStoreCoordinate from non-main thread");
@@ -214,7 +203,7 @@ NSString *theThreadStorageKey = [self threadStorageKey];
 theManagedObjectContext = [[[NSThread currentThread] threadDictionary] objectForKey:theThreadStorageKey];
 if (theManagedObjectContext == NULL)
 	{
-	theManagedObjectContext = [[self newManagedObjectContext] autorelease];
+	theManagedObjectContext = [self newManagedObjectContext];
 	if (theManagedObjectContext == NULL)
 		return(NULL);
 	[[[NSThread currentThread] threadDictionary] setObject:theManagedObjectContext forKey:theThreadStorageKey];
@@ -249,7 +238,7 @@ BOOL theResult = NO;
 		NULL];
 
 	NSError *theError = NULL;
-	[[self newPersistentStoreCoordinatorWithOptions:theOptions error:&theError] autorelease];
+	[self newPersistentStoreCoordinatorWithOptions:theOptions error:&theError];
 
 	if (outError)
 		*outError = theError;

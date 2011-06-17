@@ -36,7 +36,7 @@
 
 - (NSDate *)UTCDate
 {
-NSCalendar *theCalendar = [[[NSCalendar currentCalendar] copy] autorelease];
+NSCalendar *theCalendar = [[NSCalendar currentCalendar] copy];
 NSDateComponents *theComponents = [theCalendar components:NSEraCalendarUnit | NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit fromDate:self];
 theCalendar.timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
 return([theCalendar dateFromComponents:theComponents]);
@@ -68,14 +68,14 @@ return(theDateString);
 
 + (NSDate *)dateWithISO8601String:(NSString *)inString
 {
-ISO8601DateFormatter *theFormatter = [[[ISO8601DateFormatter alloc] init] autorelease];
+ISO8601DateFormatter *theFormatter = [[ISO8601DateFormatter alloc] init];
 NSDate *theDate = [theFormatter dateFromString:inString];
 return(theDate);
 }
 
 - (NSString *)ISO8601String
 {
-ISO8601DateFormatter *theFormatter = [[[ISO8601DateFormatter alloc] init] autorelease];
+ISO8601DateFormatter *theFormatter = [[ISO8601DateFormatter alloc] init];
 theFormatter.includeTime = YES;
 NSString *theDateString = [theFormatter stringFromDate:self];
 return(theDateString);

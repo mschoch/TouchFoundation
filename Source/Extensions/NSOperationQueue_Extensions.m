@@ -90,7 +90,7 @@ for (NSOperation *theOperation in [inOperations reverseObjectEnumerator])
 
 - (void)runSynchronousOperation:(NSOperation *)inOperation
 {
-CRunloopHelper *theHelper = [[[CRunloopHelper alloc] init] autorelease];
+CRunloopHelper *theHelper = [[CRunloopHelper alloc] init];
 [theHelper runSynchronousOperation:inOperation onQueue:self];
 }
 
@@ -106,8 +106,8 @@ CRunloopHelper *theHelper = [[[CRunloopHelper alloc] init] autorelease];
 {
 NSString *theContext = @"-[CRunloopHelper runSynchronousOperation:onQueue] context";
 
-[inOperation addObserver:self forKeyPath:@"isFinished" options:NSKeyValueObservingOptionNew context:theContext];
-[inOperation addObserver:self forKeyPath:@"isCancelled" options:NSKeyValueObservingOptionNew context:theContext];
+[inOperation addObserver:self forKeyPath:@"isFinished" options:NSKeyValueObservingOptionNew context:(void*)objc_unretainedPointer(theContext)];
+[inOperation addObserver:self forKeyPath:@"isCancelled" options:NSKeyValueObservingOptionNew context:(void*)objc_unretainedPointer(theContext)];
 
 [inQueue addOperationRecursively:inOperation];
 

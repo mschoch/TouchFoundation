@@ -37,7 +37,7 @@ NSMutableDictionary *theUserInfo = [NSMutableDictionary dictionaryWithDictionary
 
 va_list theArgs;
 va_start(theArgs, inFormat);
-NSString *theLocalizedDescription = [[[NSString alloc] initWithFormat:inFormat arguments:theArgs] autorelease];
+NSString *theLocalizedDescription = [[NSString alloc] initWithFormat:inFormat arguments:theArgs];
 va_end(theArgs);
 [theUserInfo setObject:theLocalizedDescription forKey:NSLocalizedDescriptionKey];
 

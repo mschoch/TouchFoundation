@@ -40,7 +40,7 @@
 {
 	NSAssert([value isKindOfClass:[NSArray class]], @"CCommaArrayTransformer: value must be an NSArray!");
 		
-	NSMutableString *result = [[[NSMutableString alloc] init] autorelease];
+	NSMutableString *result = [[NSMutableString alloc] init];
 	NSArray *array = value;
 	for (NSObject *item in array)
 	{

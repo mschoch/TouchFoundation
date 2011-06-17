@@ -59,12 +59,9 @@ return(self);
 
 - (void)dealloc
 {
-self.managedObjectContext = NULL;
-self.entityDescription = NULL;
 self.predicate = NULL;
 self.items = NULL;
 //
-[super dealloc];
 }
 
 #pragma mark -
@@ -78,8 +75,7 @@ return(predicate);
 {
 if (predicate != inPredicate)
 	{
-	[predicate autorelease];
-	predicate = [inPredicate retain];
+	predicate = inPredicate;
 	//
 	self.items = NULL;
     }
@@ -94,8 +90,7 @@ return(sortDescriptors);
 {
 if (sortDescriptors != inSortDescriptors)
 	{
-	[sortDescriptors autorelease];
-	sortDescriptors = [inSortDescriptors retain];
+	sortDescriptors = inSortDescriptors;
 	//
 	self.items = NULL;
     }
@@ -114,14 +109,13 @@ return(items);
 {
 if (items != inItems)
 	{
-	[items autorelease];
-	items = [inItems retain];
+	items = inItems;
     }
 }
 
 - (BOOL)fetch:(NSError **)outError
 {
-NSFetchRequest *theRequest = [[[NSFetchRequest alloc] init] autorelease];
+NSFetchRequest *theRequest = [[NSFetchRequest alloc] init];
 [theRequest setEntity:self.entityDescription];
 if (self.sortDescriptors)
 	[theRequest setSortDescriptors:self.sortDescriptors];

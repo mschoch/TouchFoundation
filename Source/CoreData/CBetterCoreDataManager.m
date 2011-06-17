@@ -43,10 +43,7 @@
 {
 [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextDidSaveNotification object:NULL];
 
-[defaultMergePolicy release];
-defaultMergePolicy = NULL;
 //
-[super dealloc];
 }
 
 

@@ -58,13 +58,6 @@
     return(self);
     }
 
-- (void)dealloc
-    {
-    [storage release];
-    storage = NULL;
-
-    [super dealloc];
-    }
     
 #pragma mark -
 
@@ -153,7 +146,7 @@
     {
     if (self.storage == NULL)
         {
-        self.storage = [[inData mutableCopy] retain];
+        self.storage = [inData mutableCopy];
         }
     else if ([self.storage isKindOfClass:[CTemporaryFile class]])
         {
@@ -239,7 +232,7 @@
     {
     NSAssert([self.storage isKindOfClass:[CTemporaryFile class]] == NO, @"Incorrectly trying to convert a data to file.");
     
-    CTemporaryFile *theTempFile = [[[CTemporaryFile alloc] init] autorelease];
+    CTemporaryFile *theTempFile = [[CTemporaryFile alloc] init];
     theTempFile.prefix = @"DATA_";
     theTempFile.suffix = @"_DATA";
     if (self.dataStorage)

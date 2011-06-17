@@ -95,7 +95,7 @@ NSString *theMimeType = [[self class] MIMETypeForPath:thePath];
 
 NSData *theData = [NSData dataWithContentsOfFile:thePath];
 
-NSURLResponse *theResponse = [[[NSURLResponse alloc] initWithURL:self.request.URL MIMEType:theMimeType expectedContentLength:theData.length textEncodingName:NULL] autorelease];
+NSURLResponse *theResponse = [[NSURLResponse alloc] initWithURL:self.request.URL MIMEType:theMimeType expectedContentLength:theData.length textEncodingName:NULL];
 
 [self.client URLProtocol:self didReceiveResponse:theResponse cacheStoragePolicy:NSURLCacheStorageNotAllowed];
 

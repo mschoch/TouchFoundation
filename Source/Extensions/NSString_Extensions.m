@@ -60,12 +60,12 @@ while ([theScanner isAtEnd] == NO)
 		}
 	}
 
-return([[theOutput copy] autorelease]);
+return([theOutput copy]);
 }
 
 - (NSArray *)componentsSeperatedByWhitespaceRunsOrComma
 {
-    NSMutableCharacterSet *theCommaCharacterSet = [[[NSCharacterSet characterSetWithCharactersInString:@","] mutableCopy] autorelease];
+    NSMutableCharacterSet *theCommaCharacterSet = [[NSCharacterSet characterSetWithCharactersInString:@","] mutableCopy];
     [theCommaCharacterSet formUnionWithCharacterSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
     return [self componentsSeparatedByRunsFromCharacterSet:theCommaCharacterSet];
@@ -100,7 +100,7 @@ return(theValue);
 
 - (NSString *)stringByAddingPercentEscapesWithCharactersToLeaveUnescaped:(NSString *)inCharactersToLeaveUnescaped legalURLCharactersToBeEscaped:(NSString *)inLegalURLCharactersToBeEscaped
 {
-NSString *theEscapedString = [(NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)self, (CFStringRef)inCharactersToLeaveUnescaped, (CFStringRef)inLegalURLCharactersToBeEscaped, kCFStringEncodingUTF8) autorelease];
+NSString *theEscapedString = (NSString *)objc_retainedObject(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)objc_unretainedPointer(self), (CFStringRef)objc_unretainedPointer(inCharactersToLeaveUnescaped), (CFStringRef)objc_unretainedPointer(inLegalURLCharactersToBeEscaped), kCFStringEncodingUTF8));
 
 return(theEscapedString);
 }

@@ -45,7 +45,7 @@ NSURL *theURL = NULL;
 
 if ([inRoot query] != NULL)
 	{
-	NSMutableDictionary *theExistingQuery = [[[inRoot queryDictionary] mutableCopy] autorelease];
+	NSMutableDictionary *theExistingQuery = [[inRoot queryDictionary] mutableCopy];
 	
 	[theExistingQuery addEntriesFromDictionary:inQueryDictionary];
 	

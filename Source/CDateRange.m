@@ -53,13 +53,6 @@ if ((self = [super init]) != NULL)
 return(self);
 }
 
-- (void)dealloc
-{
-self.start = NULL;
-self.end = NULL;
-//
-[super dealloc];
-}
 
 - (id)copyWithZone:(NSZone *)zone
 {

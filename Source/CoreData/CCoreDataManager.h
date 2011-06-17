@@ -41,7 +41,7 @@
     NSPersistentStoreCoordinator *persistentStoreCoordinator;
     NSManagedObjectModel *managedObjectModel;
 	id threadStorageKey;
-	id <CCoreDataManagerDelegate> delegate;
+	id <CCoreDataManagerDelegate> __unsafe_unretained delegate;
 }
 
 + (NSURL *)modelURLForName:(NSString *)inName;

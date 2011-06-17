@@ -34,11 +34,11 @@
 
 + (void)load
 {
-NSAutoreleasePool *thePool = [[NSAutoreleasePool alloc] init];
+@autoreleasepool {
 //
-[self setValueTransformer:[[[self alloc] init] autorelease] forName:NSStringFromClass(self)];
+[self setValueTransformer:[[self alloc] init] forName:NSStringFromClass(self)];
 //
-[thePool release];
+}
 }
 
 + (Class)transformedValueClass
@@ -55,7 +55,7 @@ return(NO);
 {
 if ([value isKindOfClass:[NSNumber class]])
 	{
-	CFNumberRef theNumber = (CFNumberRef)value;
+	CFNumberRef theNumber = (CFNumberRef)objc_unretainedPointer(value);
 	CFNumberType theType = CFNumberGetType(theNumber);
 	switch (theType)
 		{

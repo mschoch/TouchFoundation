@@ -33,7 +33,7 @@
 
 + (id)indexPathWithString:(NSString *)inString
 {
-NSIndexPath *theIndexPath = [[[NSIndexPath alloc] init] autorelease];
+NSIndexPath *theIndexPath = [[NSIndexPath alloc] init];
 
 NSArray *theComponents = [inString componentsSeparatedByString:@","];
 for (NSString *theComponent in theComponents)

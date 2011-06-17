@@ -83,39 +83,39 @@ if ((self = [super init]) != NULL)
 			
 			// ############################################
 
-			theSubDateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+			theSubDateFormatter = [[NSDateFormatter alloc] init];
 			[theSubDateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
 			[theSubDateFormatter setDateStyle:NSDateFormatterNoStyle];
 			[theSubDateFormatter setTimeStyle:NSDateFormatterShortStyle];
 			
-			gSubDateFormatter1 = [theSubDateFormatter retain];
+			gSubDateFormatter1 = theSubDateFormatter;
 
 			// ############################################
 			
-			theSubDateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+			theSubDateFormatter = [[NSDateFormatter alloc] init];
 			[theSubDateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
 			[theSubDateFormatter setDateStyle:NSDateFormatterNoStyle];
 			[theSubDateFormatter setTimeStyle:NSDateFormatterShortStyle];
 
-			gSubDateFormatter2 = [theSubDateFormatter retain];
+			gSubDateFormatter2 = theSubDateFormatter;
 
 			// ############################################
 
-			theSubDateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+			theSubDateFormatter = [[NSDateFormatter alloc] init];
 			[theSubDateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
 			[theSubDateFormatter setDateStyle:NSDateFormatterNoStyle];
 			[theSubDateFormatter setTimeStyle:NSDateFormatterShortStyle];
 
-			gSubDateFormatter3 = [theSubDateFormatter retain];
+			gSubDateFormatter3 = theSubDateFormatter;
 
 			// ############################################
 
-			theSubDateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+			theSubDateFormatter = [[NSDateFormatter alloc] init];
 			[theSubDateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
 			[theSubDateFormatter setDateStyle:NSDateFormatterShortStyle];
 			[theSubDateFormatter setTimeStyle:NSDateFormatterNoStyle];
 
-			gSubDateFormatter4 = [theSubDateFormatter retain];
+			gSubDateFormatter4 = theSubDateFormatter;
 
 			// ############################################
 			}
@@ -144,7 +144,7 @@ if ([theDateComponents isEqual:theTodayComponents])
 
 // #############################################################################
 
-NSDateComponents *theDelta = [[[NSDateComponents alloc] init] autorelease];
+NSDateComponents *theDelta = [[NSDateComponents alloc] init];
 [theDelta setDay:+1];
 NSDate *theTomorrow = [[NSCalendar currentCalendar] dateByAddingComponents:theDelta toDate:theNow options:NSWrapCalendarComponents];
 NSDateComponents *theTomorrowComponents = [[NSCalendar currentCalendar] components:NSEraCalendarUnit | NSYearCalendarUnit | NSMonthCalendarUnit | NSWeekCalendarUnit | NSDayCalendarUnit fromDate:theTomorrow];
@@ -178,7 +178,7 @@ if (self.relative == YES) {
 	
 if ([theNow timeIntervalSinceDate:inDate] < 7 * 24 * 60 * 60)
 	{
-	NSDateFormatter *theSubDateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+	NSDateFormatter *theSubDateFormatter = [[NSDateFormatter alloc] init];
 	[theSubDateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
 	if (self.singleLine == YES)
 		[theSubDateFormatter setDateStyle:NSDateFormatterShortStyle];

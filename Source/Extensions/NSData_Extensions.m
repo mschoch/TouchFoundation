@@ -76,7 +76,7 @@
 		}
 		
 	theData.length = OUTX - OUT;
-	return([[theData copy] autorelease]);
+	return([theData copy]);
 	}
 
 - (NSString *)hexString
@@ -103,7 +103,7 @@
 		*OUT++ = theHexTable[theOctet & 0x0F];
 		}
 
-	NSString *theString = [[[NSString alloc] initWithData:theHex encoding:NSASCIIStringEncoding] autorelease];
+	NSString *theString = [[NSString alloc] initWithData:theHex encoding:NSASCIIStringEncoding];
 	return(theString);
 	}
 

@@ -33,7 +33,7 @@
 
 + (NSDate *)dateWithString:(NSString *)inString format:(NSString *)inFormat
 {
-NSDateFormatter *theFormatter = [[[NSDateFormatter alloc] init] autorelease];
+NSDateFormatter *theFormatter = [[NSDateFormatter alloc] init];
 theFormatter.formatterBehavior = NSDateFormatterBehavior10_4;
 theFormatter.dateFormat = inFormat;
 return([theFormatter dateFromString:inString]);
@@ -41,7 +41,7 @@ return([theFormatter dateFromString:inString]);
 
 - (NSString *)stringWithFormat:(NSString *)inFormat;
 {
-NSDateFormatter *theFormatter = [[[NSDateFormatter alloc] init] autorelease];
+NSDateFormatter *theFormatter = [[NSDateFormatter alloc] init];
 theFormatter.formatterBehavior = NSDateFormatterBehavior10_4;
 theFormatter.dateFormat = inFormat;
 return([theFormatter stringFromDate:self]);
@@ -49,7 +49,7 @@ return([theFormatter stringFromDate:self]);
 
 - (NSString *)stringWithDateStyle:(NSDateFormatterStyle)inDateStyle timeStyle:(NSDateFormatterStyle)inTimeStyle
 {
-NSDateFormatter *theFormatter = [[[NSDateFormatter alloc] init] autorelease];
+NSDateFormatter *theFormatter = [[NSDateFormatter alloc] init];
 theFormatter.formatterBehavior = NSDateFormatterBehavior10_4;
 theFormatter.dateStyle = inDateStyle;
 theFormatter.timeStyle = inTimeStyle;

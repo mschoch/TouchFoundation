@@ -65,25 +65,6 @@
 	return(self);
 	}
 
-- (void)dealloc
-	{
-	[request release];
-	request = NULL;
-	[connection release];
-	connection = NULL;
-	[response release];
-	response = NULL;
-	[error release];
-	error = NULL;
-	[temporaryData release];
-	temporaryData = NULL;
-	[defaultCredential release];
-	defaultCredential = NULL;
-	[userInfo release];
-	userInfo = NULL;
-	//
-	[super dealloc];
-	}
 
 #pragma mark -
 
@@ -104,7 +85,7 @@
 	@try
 		{
 		self.isExecuting = YES;
-		self.connection = [[[NSURLConnection alloc] initWithRequest:self.request delegate:self startImmediately:NO] autorelease];
+		self.connection = [[NSURLConnection alloc] initWithRequest:self.request delegate:self startImmediately:NO];
 	//	self.connection = [[[NSURLConnection alloc] initWithRequest:self.request delegate:self] autorelease];
 
 		[self.connection scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
@@ -138,7 +119,7 @@
 
 	if (self.temporaryData == NULL)
 		{
-		self.temporaryData = [[[CTemporaryData alloc] initWithMemoryLimit:64 * 1024] autorelease];
+		self.temporaryData = [[CTemporaryData alloc] initWithMemoryLimit:64 * 1024];
 		}
 	NSError *theError = NULL;
 	BOOL theResult = [self.temporaryData appendData:inData error:&theError];
@@ -223,7 +204,7 @@
 	NSInteger statusCode = [(NSHTTPURLResponse *)self.response statusCode];
 	if (statusCode >= 400)
 		{
-		NSString *body = [[[NSString alloc] initWithBytes:[self.data bytes] length:[self.data length] encoding:NSUTF8StringEncoding] autorelease];
+		NSString *body = [[NSString alloc] initWithBytes:[self.data bytes] length:[self.data length] encoding:NSUTF8StringEncoding];
 		NSError *err = [NSError errorWithDomain:NSURLErrorDomain code:statusCode userInfo:[NSDictionary dictionaryWithObject:body forKey:NSLocalizedDescriptionKey]];
 		[self didFailWithError:err];
 		}

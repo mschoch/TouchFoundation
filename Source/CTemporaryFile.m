@@ -54,7 +54,7 @@
 
 + (CTemporaryFile *)tempFile
     {
-    return([[[self alloc] init] autorelease]);
+    return([[self alloc] init]);
     }
 
 - (id)init
@@ -73,8 +73,6 @@ return(self);
         {
         [fileHandle synchronizeFile];
         [fileHandle closeFile];
-        [fileHandle release];
-        fileHandle = NULL;
         }
 
     fileDescriptor = -1;
@@ -85,13 +83,8 @@ return(self);
         [[NSFileManager defaultManager] removeItemAtURL:self.URL error:NULL];
         }
 
-    [suffix release];
-    suffix = NULL;
 
-    [URL release];
-    URL = NULL;
     //
-    [super dealloc];
     }
 
 #pragma mark -
