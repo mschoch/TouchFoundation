@@ -244,8 +244,6 @@ BOOL theResult = NO;
 	{
 	NSAssert(persistentStoreCoordinator == NULL, @"Cannot migrate persistent store with it already open.");
 
-	NSAutoreleasePool *thePool = [[NSAutoreleasePool alloc] init];
-
 	NSDictionary *theOptions = [NSDictionary dictionaryWithObjectsAndKeys:
 		[NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,
 		NULL];
@@ -253,18 +251,8 @@ BOOL theResult = NO;
 	NSError *theError = NULL;
 	[[self newPersistentStoreCoordinatorWithOptions:theOptions error:&theError] autorelease];
 
-	if (theError)
-		[theError retain];
-
-	[thePool release];
-
-	if (theError)
-		[theError autorelease];
-
 	if (outError)
 		*outError = theError;
-
-	theResult = theError == NULL;
     }
 
 return(theResult);
