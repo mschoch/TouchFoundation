@@ -148,7 +148,6 @@ if (persistentStoreURL != inPersistentStoreURL)
 	{
 	if (managedObjectModel == NULL)
 		{
-//		NSLog(@"Creating MOM: %@", [self.modelURL.path lastPathComponent]);
 		NSAssert([[NSFileManager defaultManager] fileExistsAtPath:self.modelURL.path], @"MOM file doesn't exist.");
 		managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:self.modelURL];
 		}
