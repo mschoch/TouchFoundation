@@ -1,6 +1,6 @@
 //
-//  CURLOperation.m
 //  TouchCode
+//  CURLOperation.m
 //
 //  Created by Jonathan Wight on 10/21/09.
 //  Copyright 2009 toxicsoftware.com. All rights reserved.
@@ -65,7 +65,6 @@
 	return(self);
 	}
 
-
 #pragma mark -
 
 - (BOOL)isConcurrent
@@ -86,9 +85,13 @@
 		{
 		self.isExecuting = YES;
 		self.connection = [[NSURLConnection alloc] initWithRequest:self.request delegate:self startImmediately:NO];
-	//	self.connection = [[[NSURLConnection alloc] initWithRequest:self.request delegate:self] autorelease];
 
 		[self.connection scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+
+//        [self.connection setDelegateQueue:[NSOperationQueue mainQueue]];
+        
+        
+        
 		[self.connection start];
 
 	//	[self.connection performSelectorOnMainThread:@selector(start) withObject:NULL waitUntilDone:YES];
@@ -132,24 +135,30 @@
 
 - (void)didFinish
 	{
+	self.connection = NULL;
+
 	[self willChangeValueForKey:@"isFinished"];
-	self.isFinished = YES;
+	isFinished = YES;
 	[self didChangeValueForKey:@"isFinished"];
 
-	self.isExecuting = NO;
-	self.connection = NULL;
+	[self willChangeValueForKey:@"isExecuting"];
+	isExecuting = NO;
+	[self didChangeValueForKey:@"isExecuting"];
 	}
 
 - (void)didFailWithError:(NSError *)inError
 	{
+	self.connection = NULL;
+
 	self.error = inError;
 
 	[self willChangeValueForKey:@"isFinished"];
-	self.isFinished = YES;
+	isFinished = YES;
 	[self didChangeValueForKey:@"isFinished"];
 
-	self.isExecuting = NO;
-	self.connection = NULL;
+	[self willChangeValueForKey:@"isExecuting"];
+	isExecuting = NO;
+	[self didChangeValueForKey:@"isExecuting"];
 	}
 
 #pragma mark -
