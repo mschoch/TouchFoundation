@@ -99,11 +99,6 @@ return(self);
 #endif
 
 [self save];
-
-self.modelURL = NULL;
-self.persistentStoreURL = NULL;
-
-//
 }
 
 #pragma mark -

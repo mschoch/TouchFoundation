@@ -57,13 +57,6 @@ if ((self = [self initWithManagedObjectContext:inManagedObjectContext entityDesc
 return(self);
 }
 
-- (void)dealloc
-{
-self.predicate = NULL;
-self.items = NULL;
-//
-}
-
 #pragma mark -
 
 - (NSPredicate *)predicate

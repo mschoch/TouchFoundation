@@ -82,9 +82,6 @@ return(self);
         // Try and delete the file. But dont stress if it fails. JIWTODO - maybe log this?
         [[NSFileManager defaultManager] removeItemAtURL:self.URL error:NULL];
         }
-
-
-    //
     }
 
 #pragma mark -

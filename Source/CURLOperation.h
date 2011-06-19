@@ -32,15 +32,6 @@
 @class CTemporaryData;
 
 @interface CURLOperation : NSOperation {
-	BOOL isExecuting;
-	BOOL isFinished;
-	NSURLRequest *request;
-	NSURLConnection *connection;
-	NSURLResponse *response;
-	NSError *error;
-	CTemporaryData *temporaryData;
-	NSURLCredential *defaultCredential;
-	id userInfo;
 }
 
 @property (readonly, retain) NSURLRequest *request;
