@@ -47,52 +47,52 @@ static NSOperationQueue *gDefaultOperationQueue = NULL;
 #endif
 
 + (NSOperationQueue *)defaultOperationQueue
-{
-#if USE_MAIN_QUEUE == 0
-@synchronized(@"+[NSOperationQueue defaultOperationQueue]")
-	{
-	if (gDefaultOperationQueue == NULL)
-		{
-		gDefaultOperationQueue = [[self alloc] init];
-		}
-	}
-return(gDefaultOperationQueue);
-#else
-NSOperationQueue *theQueue = [self currentQueue];
-return(theQueue);
-#endif
-}
+    {
+    #if USE_MAIN_QUEUE == 0
+    @synchronized(@"+[NSOperationQueue defaultOperationQueue]")
+        {
+        if (gDefaultOperationQueue == NULL)
+            {
+            gDefaultOperationQueue = [[self alloc] init];
+            }
+        }
+    return(gDefaultOperationQueue);
+    #else
+    NSOperationQueue *theQueue = [self currentQueue];
+    return(theQueue);
+    #endif
+    }
 
 - (void)addOperationRecursively:(NSOperation *)inOperation
-{
-[self addOperation:inOperation];
+    {
+    [self addOperation:inOperation];
 
-for (NSOperation *theDependency in inOperation.dependencies)
-	{
-	[self addOperationRecursively:theDependency];
-	}
-}
+    for (NSOperation *theDependency in inOperation.dependencies)
+        {
+        [self addOperationRecursively:theDependency];
+        }
+    }
 
 - (void)addDependentOperations:(NSArray *)inOperations
-{
-NSOperation *thePreviousOperation = NULL;
-for (NSOperation *theOperation in [inOperations reverseObjectEnumerator])
-	{
-	if (thePreviousOperation)
-		{
-		[thePreviousOperation addDependency:theOperation];
-		}
-	thePreviousOperation = theOperation;
-	}
+    {
+    NSOperation *thePreviousOperation = NULL;
+    for (NSOperation *theOperation in [inOperations reverseObjectEnumerator])
+        {
+        if (thePreviousOperation)
+            {
+            [thePreviousOperation addDependency:theOperation];
+            }
+        thePreviousOperation = theOperation;
+        }
 
-[self addOperationRecursively:[inOperations lastObject]];
-}
+    [self addOperationRecursively:[inOperations lastObject]];
+    }
 
 - (void)runSynchronousOperation:(NSOperation *)inOperation
-{
-CRunloopHelper *theHelper = [[CRunloopHelper alloc] init];
-[theHelper runSynchronousOperation:inOperation onQueue:self];
-}
+    {
+    CRunloopHelper *theHelper = [[CRunloopHelper alloc] init];
+    [theHelper runSynchronousOperation:inOperation onQueue:self];
+    }
 
 @end
 
@@ -103,33 +103,33 @@ CRunloopHelper *theHelper = [[CRunloopHelper alloc] init];
 @synthesize flag;
 
 - (void)runSynchronousOperation:(NSOperation *)inOperation onQueue:(NSOperationQueue *)inQueue
-{
-NSString *theContext = @"-[CRunloopHelper runSynchronousOperation:onQueue] context";
+    {
+    NSString *theContext = @"-[CRunloopHelper runSynchronousOperation:onQueue] context";
 
-[inOperation addObserver:self forKeyPath:@"isFinished" options:NSKeyValueObservingOptionNew context:(void*)objc_unretainedPointer(theContext)];
-[inOperation addObserver:self forKeyPath:@"isCancelled" options:NSKeyValueObservingOptionNew context:(void*)objc_unretainedPointer(theContext)];
+    [inOperation addObserver:self forKeyPath:@"isFinished" options:NSKeyValueObservingOptionNew context:(void*)objc_unretainedPointer(theContext)];
+    [inOperation addObserver:self forKeyPath:@"isCancelled" options:NSKeyValueObservingOptionNew context:(void*)objc_unretainedPointer(theContext)];
 
-[inQueue addOperationRecursively:inOperation];
+    [inQueue addOperationRecursively:inOperation];
 
-self.flag = YES;
-while (self.flag == YES)
-	{
-	if ([[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:10]] == NO)
-		break;
-	}
+    self.flag = YES;
+    while (self.flag == YES)
+        {
+        if ([[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:10]] == NO)
+            break;
+        }
 
-[inOperation removeObserver:self forKeyPath:@"isFinished"];
-[inOperation removeObserver:self forKeyPath:@"isCancelled"];
-}
+    [inOperation removeObserver:self forKeyPath:@"isFinished"];
+    [inOperation removeObserver:self forKeyPath:@"isCancelled"];
+    }
 
 - (void)stop
-{
-self.flag = NO;
-}
+    {
+    self.flag = NO;
+    }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
-{
-[[NSRunLoop currentRunLoop] performSelector:@selector(stop) target:self argument:NULL order:0 modes:[NSArray arrayWithObject:NSDefaultRunLoopMode]];
-}
+    {
+    [[NSRunLoop currentRunLoop] performSelector:@selector(stop) target:self argument:NULL order:0 modes:[NSArray arrayWithObject:NSDefaultRunLoopMode]];
+    }
 
 @end

@@ -312,7 +312,7 @@ return(theModelURL);
 
 + (NSURL *)persistentStoreURLForName:(NSString *)inName storeType:(NSString *)inStoreType forceReplace:(BOOL)inForceReplace
 {
-inStoreType = inStoreType ? inStoreType : NSSQLiteStoreType;
+inStoreType = inStoreType ?: NSSQLiteStoreType;
 
 NSString *thePathExtension = NULL;
 if ([inStoreType isEqualToString:NSSQLiteStoreType])
