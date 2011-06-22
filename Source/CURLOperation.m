@@ -86,16 +86,15 @@
 		self.isExecuting = YES;
 		self.connection = [[NSURLConnection alloc] initWithRequest:self.request delegate:self startImmediately:NO];
 
-		[self.connection scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+//		[self.connection scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
 
-//        [self.connection setDelegateQueue:[NSOperationQueue mainQueue]];
+        [self.connection setDelegateQueue:[NSOperationQueue currentQueue]];
         
         
         
 		[self.connection start];
 
-	//	[self.connection performSelectorOnMainThread:@selector(start) withObject:NULL waitUntilDone:YES];
-
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate distantFuture]];
 		}
 	@catch (NSException * e)
 		{
