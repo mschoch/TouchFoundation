@@ -31,37 +31,7 @@
 
 #define USE_MAIN_QUEUE 0
 
-@interface CRunloopHelper : NSObject {
-	BOOL flag;
-}
-@property (readwrite, assign) BOOL flag;
-- (void)runSynchronousOperation:(NSOperation *)inOperation onQueue:(NSOperationQueue *)inQueue;
-@end
-
-#pragma mark -
-
 @implementation NSOperationQueue (NSOperationQueue_Extensions)
-
-#if USE_MAIN_QUEUE == 0
-static NSOperationQueue *gDefaultOperationQueue = NULL;
-#endif
-
-+ (NSOperationQueue *)defaultOperationQueue
-    {
-    #if USE_MAIN_QUEUE == 0
-    @synchronized(@"+[NSOperationQueue defaultOperationQueue]")
-        {
-        if (gDefaultOperationQueue == NULL)
-            {
-            gDefaultOperationQueue = [[self alloc] init];
-            }
-        }
-    return(gDefaultOperationQueue);
-    #else
-    NSOperationQueue *theQueue = [self currentQueue];
-    return(theQueue);
-    #endif
-    }
 
 - (void)addOperationRecursively:(NSOperation *)inOperation
     {
@@ -86,50 +56,6 @@ static NSOperationQueue *gDefaultOperationQueue = NULL;
         }
 
     [self addOperationRecursively:[inOperations lastObject]];
-    }
-
-- (void)runSynchronousOperation:(NSOperation *)inOperation
-    {
-    CRunloopHelper *theHelper = [[CRunloopHelper alloc] init];
-    [theHelper runSynchronousOperation:inOperation onQueue:self];
-    }
-
-@end
-
-#pragma mark -
-
-@implementation CRunloopHelper
-
-@synthesize flag;
-
-- (void)runSynchronousOperation:(NSOperation *)inOperation onQueue:(NSOperationQueue *)inQueue
-    {
-    NSString *theContext = @"-[CRunloopHelper runSynchronousOperation:onQueue] context";
-
-    [inOperation addObserver:self forKeyPath:@"isFinished" options:NSKeyValueObservingOptionNew context:(void*)objc_unretainedPointer(theContext)];
-    [inOperation addObserver:self forKeyPath:@"isCancelled" options:NSKeyValueObservingOptionNew context:(void*)objc_unretainedPointer(theContext)];
-
-    [inQueue addOperationRecursively:inOperation];
-
-    self.flag = YES;
-    while (self.flag == YES)
-        {
-        if ([[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:10]] == NO)
-            break;
-        }
-
-    [inOperation removeObserver:self forKeyPath:@"isFinished"];
-    [inOperation removeObserver:self forKeyPath:@"isCancelled"];
-    }
-
-- (void)stop
-    {
-    self.flag = NO;
-    }
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
-    {
-    [[NSRunLoop currentRunLoop] performSelector:@selector(stop) target:self argument:NULL order:0 modes:[NSArray arrayWithObject:NSDefaultRunLoopMode]];
     }
 
 @end
