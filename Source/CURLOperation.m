@@ -168,14 +168,6 @@
 	return(inRequest);
 	}
 
-//- (BOOL)connection:(NSURLConnection *)inConnection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
-//{
-//}
-//
-//- (NSInputStream *)connection:(NSURLConnection *)inConnection needNewBodyStream:(NSURLRequest *)request
-//{
-//}
-
 - (void)connection:(NSURLConnection *)inConnection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)inChallenge
 	{
 	if (self.defaultCredential == NULL || [inChallenge previousFailureCount] > 1)
@@ -186,13 +178,6 @@
 	[[inChallenge sender] useCredential:self.defaultCredential forAuthenticationChallenge:inChallenge];
 	}
 
-//- (void)connection:(NSURLConnection *)inConnection didCancelAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
-//{
-//}
-//
-//- (BOOL)connectionShouldUseCredentialStorage:(NSURLConnection *)inConnection
-//{
-//}
 
 - (void)connection:(NSURLConnection *)inConnection didReceiveResponse:(NSURLResponse *)inResponse
 	{
@@ -203,10 +188,6 @@
 	{
 	[self didReceiveData:inData];
 	}
-
-//- (void)connection:(NSURLConnection *)inConnection didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite
-//{
-//}
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)inConnection
 	{
@@ -227,14 +208,5 @@
 	{
 	[self didFailWithError:inError];
 	}
-
-//- (NSCachedURLResponse *)connection:(NSURLConnection *)inConnection willCacheResponse:(NSCachedURLResponse *)cachedResponse
-//{
-//}
-
-//- (NSString *)description
-//{
-//return([NSString stringWithFormat:@"isFinished:%d", self.isFinished]);;
-//}
 
 @end
